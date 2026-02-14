@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoIntel Technologies — Autonomous Intelligence Infrastructure</title>
+<meta name="description" content="Transforming dormant hardware into the world's largest distributed AI workforce. Infrastructure for the autonomous intelligence economy.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --off-white: #f5f5f5;
+  --gray-100: #e8e8e8;
+  --gray-200: #c0c0c0;
+  --gray-400: #808080;
+  --gray-600: #505050;
+  --gray-800: #1a1a1a;
+  --gray-900: #0d0d0d;
+  --accent: #2a2a2a;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Space Grotesk', -apple-system, sans-serif;
+  --hand: 'Caveat', cursive;
+}
+
+html { scroll-behavior: smooth; background: var(--black); }
+
+body {
+  font-family: var(--sans);
+  color: var(--white);
+  background: var(--black);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--white); color: var(--black); }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+/* ---- SKETCH TEXTURE ---- */
+.sketch-line {
+  position: relative;
+}
+.sketch-line::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='6' viewBox='0 0 200 6'%3E%3Cpath d='M0 3 C20 1, 40 5, 60 3 C80 1, 100 5, 120 3 C140 1, 160 5, 180 3 C190 2, 195 4, 200 3' stroke='white' stroke-width='1.5' fill='none' opacity='0.6'/%3E%3C/svg%3E") repeat-x;
+  background-size: 200px 6px;
+}
+
+.sketch-circle {
+  position: relative;
+  display: inline-block;
+}
+.sketch-circle::before {
+  content: '';
+  position: absolute;
+  inset: -12px -20px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50% 45% 55% 40% / 45% 50% 40% 55%;
+  transform: rotate(-2deg);
+  pointer-events: none;
+}
+
+/* ---- HAND-DRAWN BORDERS ---- */
+.scribble-box {
+  position: relative;
+  border: none;
+}
+.scribble-box::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect x='2' y='2' width='99%25' height='99%25' rx='4' ry='4' fill='none' stroke='rgba(255,255,255,0.15)' stroke-width='1' stroke-dasharray='8,4' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(30px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: all 0.5s ease;
+}
+nav.scrolled { padding: 16px 48px; background: rgba(0,0,0,0.9); }
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.nav-brand img {
+  height: 32px;
+  width: 32px;
+  filter: brightness(0) invert(1);
+}
+.nav-brand-text {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.nav-brand-text span {
+  font-weight: 300;
+  color: var(--gray-400);
+}
+
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 400;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  padding: 10px 24px;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--white) !important;
+  font-weight: 500 !important;
+  transition: all 0.3s !important;
+}
+.nav-cta:hover {
+  background: var(--white) !important;
+  color: var(--black) !important;
+}
+
+/* ---- HERO ---- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 24px 80px;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 60% at center, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at center, black 20%, transparent 70%);
+}
+
+.hero-scribbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-scribbles svg {
+  position: absolute;
+  opacity: 0.06;
+}
+.scribble-1 { top: 15%; left: 5%; width: 300px; animation: drift 20s ease-in-out infinite; }
+.scribble-2 { bottom: 20%; right: 8%; width: 250px; animation: drift 25s ease-in-out infinite reverse; }
+.scribble-3 { top: 60%; left: 50%; width: 400px; animation: drift 30s ease-in-out infinite; }
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(10px, -15px) rotate(1deg); }
+  50% { transform: translate(-5px, 10px) rotate(-0.5deg); }
+  75% { transform: translate(8px, 5px) rotate(0.5deg); }
+}
+
+.hero-logo {
+  width: 160px;
+  height: 160px;
+  margin-bottom: 48px;
+  filter: brightness(0) invert(1);
+  opacity: 0;
+  animation: fadeUp 1s 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  font-family: var(--hand);
+  font-size: 22px;
+  color: var(--gray-400);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 1s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(48px, 8vw, 120px);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -2px;
+  color: var(--white);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 1s 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+  position: relative;
+  z-index: 2;
+}
+.hero-title em {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.hero-sub {
+  font-family: var(--sans);
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 300;
+  color: var(--gray-400);
+  max-width: 600px;
+  line-height: 1.7;
+  margin: 0 auto 48px;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-cta-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 1s 1s cubic-bezier(0.16,1,0.3,1) forwards;
+  position: relative;
+  z-index: 2;
+}
+
+.btn-primary {
+  padding: 16px 40px;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-primary:hover {
+  background: var(--gray-100);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(255,255,255,0.1);
+}
+
+.btn-outline {
+  padding: 16px 40px;
+  background: transparent;
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-outline:hover {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.05);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 1s 1.5s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.hero-scroll span {
+  font-family: var(--hand);
+  font-size: 14px;
+  color: var(--gray-600);
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.3); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- SECTION COMMONS ---- */
+.section { padding: 140px 48px; position: relative; }
+.section-container { max-width: 1200px; margin: 0 auto; }
+
+.section-label {
+  font-family: var(--hand);
+  font-size: 20px;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+}
+
+.section-number {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--gray-600);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 32px;
+}
+.section-title em { font-style: italic; }
+
+.section-body {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--gray-200);
+  max-width: 640px;
+}
+
+.divider {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+/* ---- THESIS SECTION ---- */
+.thesis-section { background: var(--black); }
+
+.thesis-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  align-items: start;
+}
+
+.thesis-visual {
+  position: relative;
+  padding: 60px;
+}
+
+.thesis-sketch {
+  width: 100%;
+  opacity: 0.8;
+}
+
+.thesis-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.thesis-stat {
+  padding: 24px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.thesis-stat .number {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+}
+.thesis-stat .label {
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+
+/* ---- HOW IT WORKS ---- */
+.how-section { background: var(--gray-900); }
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  margin-top: 80px;
+}
+
+.how-step {
+  position: relative;
+  padding: 48px 32px;
+}
+.how-step::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px dashed rgba(255,255,255,0.08);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.step-num {
+  font-family: var(--hand);
+  font-size: 48px;
+  color: rgba(255,255,255,0.1);
+  margin-bottom: 24px;
+  line-height: 1;
+}
+
+.step-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.step-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray-400);
+  line-height: 1.7;
+}
+
+.step-arrow {
+  position: absolute;
+  top: 50%;
+  right: -32px;
+  transform: translateY(-50%);
+  width: 16px;
+  color: rgba(255,255,255,0.15);
+}
+
+/* ---- NODE TYPES ---- */
+.nodes-section { background: var(--black); }
+
+.nodes-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.nodes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.node-card {
+  padding: 48px 32px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+  overflow: hidden;
+}
+.node-card:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.12);
+  transform: translateY(-4px);
+}
+.node-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.node-card:hover::after { opacity: 1; }
+
+.node-icon {
+  font-size: 32px;
+  margin-bottom: 24px;
+  display: block;
+  filter: grayscale(1) brightness(2);
+}
+
+.node-name {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.node-type {
+  font-family: var(--hand);
+  font-size: 16px;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+}
+
+.node-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-400);
+  line-height: 1.7;
+}
+
+.node-price {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gray-600);
+  text-transform: uppercase;
+}
+.node-price strong {
+  color: var(--white);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+/* ---- GRID SECTION ---- */
+.grid-section {
+  background: var(--gray-900);
+  overflow: hidden;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.grid-visual {
+  position: relative;
+  height: 500px;
+}
+
+.grid-node-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--white);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: nodePulse 3s ease-in-out infinite;
+}
+.grid-node-dot::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  animation: ringExpand 3s ease-out infinite;
+}
+
+@keyframes nodePulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.5); }
+}
+@keyframes ringExpand {
+  0% { transform: scale(1); opacity: 0.3; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+.grid-connection {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  transform-origin: left center;
+}
+
+.grid-features {
+  margin-top: 48px;
+}
+.grid-feature {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.grid-feature-marker {
+  width: 6px;
+  height: 6px;
+  background: var(--white);
+  border-radius: 50%;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+.grid-feature-text {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray-200);
+  line-height: 1.6;
+}
+
+/* ---- SECTORS ---- */
+.sectors-section { background: var(--black); }
+
+.sectors-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  margin-top: 80px;
+}
+
+.sector-card {
+  padding: 56px 40px;
+  background: var(--black);
+  transition: background 0.4s;
+}
+.sector-card:hover { background: rgba(255,255,255,0.02); }
+
+.sector-icon {
+  font-family: var(--hand);
+  font-size: 36px;
+  color: var(--gray-400);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.sector-name {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.sector-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-400);
+  line-height: 1.7;
+  max-width: 400px;
+}
+
+/* ---- DEVICE OWNERS ---- */
+.owners-section {
+  background: var(--white);
+  color: var(--black);
+}
+.owners-section .section-label { color: var(--gray-600); }
+.owners-section .section-title { color: var(--black); }
+.owners-section .section-body { color: var(--gray-600); }
+
+.owners-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.owners-options {
+  margin-top: 48px;
+}
+
+.owner-option {
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.option-num {
+  font-family: var(--hand);
+  font-size: 32px;
+  color: var(--gray-200);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.option-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 8px;
+}
+
+.option-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+.owners-visual {
+  position: relative;
+}
+
+.owners-sketch {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* ---- ENTERPRISE ---- */
+.enterprise-section { background: var(--black); }
+
+.enterprise-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.enterprise-features {
+  display: grid;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.ent-feature {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.ent-marker {
+  width: 32px;
+  height: 32px;
+  border: 1px dashed rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--hand);
+  font-size: 14px;
+  color: var(--gray-400);
+}
+
+.ent-text h4 {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.ent-text p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-400);
+  line-height: 1.6;
+}
+
+/* ---- REVENUE ---- */
+.revenue-section { background: var(--gray-900); }
+
+.revenue-streams {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 80px;
+}
+
+.revenue-card {
+  padding: 40px 28px;
+  position: relative;
+}
+.revenue-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+
+.rev-amount {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.rev-stream {
+  font-family: var(--hand);
+  font-size: 18px;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+}
+
+.rev-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+/* ---- BACKED BY ---- */
+.backed-section {
+  background: var(--black);
+  text-align: center;
+  padding: 100px 48px;
+}
+
+.backed-label {
+  font-family: var(--hand);
+  font-size: 18px;
+  color: var(--gray-600);
+  margin-bottom: 24px;
+}
+
+.backed-name {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 300;
+  color: var(--gray-400);
+  margin-bottom: 8px;
+}
+.backed-name em {
+  color: var(--white);
+  font-style: normal;
+}
+
+.backed-sub {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+
+/* ---- FINAL CTA ---- */
+.cta-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 800px; height: 800px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255,255,255,0.02), transparent 60%);
+  pointer-events: none;
+}
+
+.cta-title {
+  font-family: var(--serif);
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 300;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+.cta-title em { font-style: italic; }
+
+.cta-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray-400);
+  max-width: 500px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-form {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-input {
+  flex: 1;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.cta-input::placeholder { color: var(--gray-600); }
+.cta-input:focus { border-color: rgba(255,255,255,0.3); }
+
+.cta-submit {
+  padding: 16px 32px;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.cta-submit:hover {
+  background: var(--gray-100);
+  transform: translateY(-1px);
+}
+
+/* ---- FOOTER ---- */
+footer {
+  padding: 60px 48px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  font-size: 11px;
+  color: var(--gray-600);
+  letter-spacing: 1px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 32px;
+}
+.footer-links a {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gray-600);
+  text-decoration: none;
+  transition: color 0.3s;
+  text-transform: uppercase;
+}
+.footer-links a:hover { color: var(--white); }
+
+.footer-parent {
+  font-size: 10px;
+  color: var(--gray-600);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.footer-parent a {
+  color: var(--gray-400);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-parent a:hover { color: var(--white); }
+
+/* ---- REVEAL ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .section { padding: 80px 24px; }
+  .thesis-layout, .grid-layout, .owners-layout, .enterprise-layout { grid-template-columns: 1fr; gap: 60px; }
+  .how-steps { grid-template-columns: 1fr; }
+  .nodes-grid { grid-template-columns: 1fr; }
+  .sectors-grid { grid-template-columns: 1fr; }
+  .revenue-streams { grid-template-columns: 1fr; }
+  .step-arrow { display: none; }
+  .hero-title { letter-spacing: -1px; }
+  .hero-cta-row { flex-direction: column; align-items: center; }
+  .cta-form { flex-direction: column; }
+  footer { flex-direction: column; gap: 24px; text-align: center; }
+  .grid-visual { height: 300px; }
+  .thesis-stat .number { font-size: 32px; }
+}
+
+/* Noise */
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px;
+}
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <img src="logo-symbol.png" alt="AutoIntel">
+    <div class="nav-brand-text">Auto<span>Intel</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#thesis">Thesis</a>
+    <a href="#how">How It Works</a>
+    <a href="#nodes">Nodes</a>
+    <a href="#grid">The Grid</a>
+    <a href="#sectors">Sectors</a>
+    <a href="#join" class="nav-cta">Join Network</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+
+  <!-- Scribble SVGs -->
+  <div class="hero-scribbles">
+    <svg class="scribble-1" viewBox="0 0 300 200" fill="none">
+      <path d="M10 100 C50 20, 100 180, 150 80 C200 -20, 250 160, 290 100" stroke="white" stroke-width="0.8" fill="none"/>
+      <path d="M20 120 C70 40, 120 190, 170 90 C210 10, 260 170, 280 110" stroke="white" stroke-width="0.5" fill="none"/>
+    </svg>
+    <svg class="scribble-2" viewBox="0 0 250 250" fill="none">
+      <circle cx="125" cy="125" r="100" stroke="white" stroke-width="0.5" fill="none" stroke-dasharray="4,8"/>
+      <circle cx="125" cy="125" r="70" stroke="white" stroke-width="0.3" fill="none" stroke-dasharray="2,12"/>
+      <circle cx="125" cy="125" r="40" stroke="white" stroke-width="0.8" fill="none"/>
+    </svg>
+    <svg class="scribble-3" viewBox="0 0 400 100" fill="none">
+      <path d="M0 50 Q50 10 100 50 Q150 90 200 50 Q250 10 300 50 Q350 90 400 50" stroke="white" stroke-width="0.5" fill="none"/>
+    </svg>
+  </div>
+
+  <img src="logo-symbol.png" alt="AutoIntel" class="hero-logo">
+  <p class="hero-eyebrow">the future runs on dormant machines</p>
+  <h1 class="hero-title">Autonomous<br><em>Intelligence</em><br>Infrastructure</h1>
+  <p class="hero-sub">We transform the world's underutilized hardware into a distributed AI workforce. Every idle device becomes a specialized intelligence node. Every node becomes an employee.</p>
+
+  <div class="hero-cta-row">
+    <a href="#join" class="btn-primary">Join the Network</a>
+    <a href="#thesis" class="btn-outline">Read the Thesis</a>
+  </div>
+
+  <div class="hero-scroll">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THESIS -->
+<section id="thesis" class="section thesis-section">
+  <div class="section-container">
+    <div class="thesis-layout">
+      <div>
+        <p class="section-number reveal">001</p>
+        <p class="section-label reveal reveal-delay-1">The Thesis</p>
+        <h2 class="section-title reveal reveal-delay-2">The World Is Sitting on<br><em>Billions</em> in Dormant<br>Compute Power</h2>
+        <p class="section-body reveal reveal-delay-3">There are over 5 billion computing devices worldwide collecting dust. Laptops in drawers. Desktops in warehouses. Tablets in landfills. Each one contains processors, memory, and storage capable of running autonomous intelligence workloads.</p>
+        <p class="section-body reveal reveal-delay-4" style="margin-top:24px;">AutoIntel acquires this hardware at a fraction of market value, installs proprietary AI operating environments, and deploys each device as a specialized autonomous worker — or connects it to a global distributed intelligence grid.</p>
+
+        <div class="thesis-stat-grid reveal reveal-delay-4">
+          <div class="thesis-stat">
+            <div class="number">5B+</div>
+            <div class="label">Idle devices globally</div>
+          </div>
+          <div class="thesis-stat">
+            <div class="number">$62B</div>
+            <div class="label">E-waste generated yearly</div>
+          </div>
+          <div class="thesis-stat">
+            <div class="number">90%</div>
+            <div class="label">Compute capacity wasted</div>
+          </div>
+          <div class="thesis-stat">
+            <div class="number">1/10</div>
+            <div class="label">Cost vs. cloud infrastructure</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="thesis-visual reveal reveal-delay-2">
+        <!-- Sketch-style device transformation -->
+        <svg class="thesis-sketch" viewBox="0 0 400 500" fill="none">
+          <!-- Old device -->
+          <rect x="120" y="20" width="160" height="100" rx="4" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none" stroke-dasharray="4,4"/>
+          <text x="200" y="75" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="Caveat" font-size="14">dormant device</text>
+
+          <!-- Arrow down (scribble) -->
+          <path d="M200 130 C195 160, 205 180, 200 220" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M190 210 L200 225 L210 210" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+
+          <!-- AutoIntel OS install -->
+          <rect x="100" y="230" width="200" height="60" rx="4" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="rgba(255,255,255,0.02)"/>
+          <text x="200" y="265" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Space Grotesk" font-size="12" letter-spacing="2">AUTOINTEL OS</text>
+
+          <!-- Arrow down -->
+          <path d="M200 300 C195 330, 205 350, 200 380" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M190 370 L200 385 L210 370" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+
+          <!-- Deployed node -->
+          <circle cx="200" cy="430" r="50" stroke="white" stroke-width="1" fill="rgba(255,255,255,0.03)"/>
+          <circle cx="200" cy="430" r="35" stroke="rgba(255,255,255,0.3)" stroke-width="0.5" fill="none" stroke-dasharray="2,4"/>
+          <text x="200" y="427" text-anchor="middle" fill="white" font-family="Caveat" font-size="14">AI Node</text>
+          <text x="200" y="445" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Space Grotesk" font-size="9" letter-spacing="1">AUTONOMOUS</text>
+
+          <!-- Radiating lines -->
+          <line x1="155" y1="410" x2="120" y2="390" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+          <line x1="245" y1="410" x2="280" y2="390" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+          <line x1="155" y1="450" x2="120" y2="470" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+          <line x1="245" y1="450" x2="280" y2="470" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="section how-section">
+  <div class="section-container">
+    <p class="section-number reveal">002</p>
+    <p class="section-label reveal reveal-delay-1">The Process</p>
+    <h2 class="section-title reveal reveal-delay-2">From Dormant to<br><em>Deployed</em></h2>
+
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="step-num">01</div>
+        <h3 class="step-title">Acquire</h3>
+        <p class="step-desc">We source underutilized laptops, desktops, tablets, and enterprise hardware through institutional buybacks, e-waste partnerships, consumer trade-ins, and bulk liquidation channels. Devices are acquired at 10-30% of original retail value.</p>
+        <svg class="step-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 8h8m-4-4l4 4-4 4" stroke="currentColor" stroke-width="1"/></svg>
+      </div>
+
+      <div class="how-step reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <h3 class="step-title">Transform</h3>
+        <p class="step-desc">Each device is refurbished, stress-tested, and loaded with the AutoIntel OS — a proprietary lightweight AI operating environment optimized for autonomous task execution, secure workload distribution, and mesh network participation.</p>
+        <svg class="step-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 8h8m-4-4l4 4-4 4" stroke="currentColor" stroke-width="1"/></svg>
+      </div>
+
+      <div class="how-step reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Deploy</h3>
+        <p class="step-desc">Devices are deployed as specialized AI nodes — sold as ready-made digital employees, connected to the distributed compute grid, or installed as private edge clusters for enterprise and government clients. Every node is an asset generating revenue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NODE TYPES -->
+<section id="nodes" class="section nodes-section">
+  <div class="section-container">
+    <div class="nodes-header">
+      <p class="section-number reveal">003</p>
+      <p class="section-label reveal reveal-delay-1">Pre-Built Intelligence</p>
+      <h2 class="section-title reveal reveal-delay-2">Ready-Made<br><em>AI Employees</em></h2>
+      <p class="section-body reveal reveal-delay-3" style="text-align:center;margin:0 auto;">Each node ships pre-configured for a specific role. Plug in. Power on. Your new employee starts working immediately. No cloud subscription. No API costs. You own the machine.</p>
+    </div>
+
+    <div class="nodes-grid">
+      <div class="node-card reveal">
+        <span class="node-icon">&#9998;</span>
+        <h3 class="node-name">The Accountant</h3>
+        <p class="node-type">Financial Intelligence Node</p>
+        <p class="node-desc">Handles bookkeeping, invoice processing, expense categorization, tax preparation, financial forecasting, and audit trail generation. Trained on accounting standards and financial regulation.</p>
+        <div class="node-price">Starting at <strong>$499</strong> / one-time</div>
+      </div>
+
+      <div class="node-card reveal reveal-delay-1">
+        <span class="node-icon">&#9878;</span>
+        <h3 class="node-name">The Researcher</h3>
+        <p class="node-type">Deep Analysis Node</p>
+        <p class="node-desc">Conducts market research, competitive analysis, patent searches, academic literature review, data synthesis, and strategic intelligence gathering. Your private research department.</p>
+        <div class="node-price">Starting at <strong>$599</strong> / one-time</div>
+      </div>
+
+      <div class="node-card reveal reveal-delay-2">
+        <span class="node-icon">&#9881;</span>
+        <h3 class="node-name">The Creator</h3>
+        <p class="node-type">Content Production Node</p>
+        <p class="node-desc">Generates marketing copy, social media content, blog posts, video scripts, email campaigns, and brand assets. Connects to your existing creative workflow and brand guidelines.</p>
+        <div class="node-price">Starting at <strong>$449</strong> / one-time</div>
+      </div>
+
+      <div class="node-card reveal">
+        <span class="node-icon">&#9742;</span>
+        <h3 class="node-name">The Concierge</h3>
+        <p class="node-type">Customer Service Node</p>
+        <p class="node-desc">Manages customer inquiries, appointment scheduling, follow-up sequences, complaint resolution, and satisfaction tracking. Operates 24/7 without breaks, benefits, or burnout.</p>
+        <div class="node-price">Starting at <strong>$399</strong> / one-time</div>
+      </div>
+
+      <div class="node-card reveal reveal-delay-1">
+        <span class="node-icon">&#9825;</span>
+        <h3 class="node-name">The Companion</h3>
+        <p class="node-type">Personal AI Assistant Node</p>
+        <p class="node-desc">Your private AI assistant for daily life — smart home automation, schedule management, financial tracking, health reminders, and secure personal intelligence processing. Fully offline-capable.</p>
+        <div class="node-price">Starting at <strong>$349</strong> / one-time</div>
+      </div>
+
+      <div class="node-card reveal reveal-delay-2">
+        <span class="node-icon">&#9883;</span>
+        <h3 class="node-name">The Counsel</h3>
+        <p class="node-type">Legal Intelligence Node</p>
+        <p class="node-desc">Processes legal documents, drafts contracts, performs compliance checks, summarizes case law, and manages regulatory filing workflows. Built for law firms and legal departments.</p>
+        <div class="node-price">Starting at <strong>$699</strong> / one-time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THE GRID -->
+<section id="grid" class="section grid-section">
+  <div class="section-container">
+    <div class="grid-layout">
+      <div>
+        <p class="section-number reveal">004</p>
+        <p class="section-label reveal reveal-delay-1">Distributed Intelligence</p>
+        <h2 class="section-title reveal reveal-delay-2">The AutoIntel<br><em>Grid</em></h2>
+        <p class="section-body reveal reveal-delay-3">Every AutoIntel node can connect to a global distributed compute network. Together, thousands of nodes form a decentralized intelligence grid — processing AI workloads at a fraction of the cost of traditional cloud infrastructure.</p>
+
+        <div class="grid-features reveal reveal-delay-4">
+          <div class="grid-feature">
+            <div class="grid-feature-marker"></div>
+            <p class="grid-feature-text">Individuals monetize idle compute by connecting devices to the grid</p>
+          </div>
+          <div class="grid-feature">
+            <div class="grid-feature-marker"></div>
+            <p class="grid-feature-text">Enterprises access on-demand AI processing without cloud vendor lock-in</p>
+          </div>
+          <div class="grid-feature">
+            <div class="grid-feature-marker"></div>
+            <p class="grid-feature-text">Secure mesh networking via encrypted tunnels — data never touches centralized servers</p>
+          </div>
+          <div class="grid-feature">
+            <div class="grid-feature-marker"></div>
+            <p class="grid-feature-text">Automatic workload distribution — the grid assigns tasks to optimal nodes in real-time</p>
+          </div>
+          <div class="grid-feature">
+            <div class="grid-feature-marker"></div>
+            <p class="grid-feature-text">Network participants earn compute credits proportional to their contribution</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-visual reveal reveal-delay-2">
+        <!-- Animated grid nodes -->
+        <div class="grid-node-dot" style="top:20%;left:30%;animation-delay:0s;"></div>
+        <div class="grid-node-dot" style="top:15%;left:65%;animation-delay:0.5s;"></div>
+        <div class="grid-node-dot" style="top:40%;left:20%;animation-delay:1s;"></div>
+        <div class="grid-node-dot" style="top:50%;left:50%;animation-delay:0.3s;"></div>
+        <div class="grid-node-dot" style="top:35%;left:80%;animation-delay:0.8s;"></div>
+        <div class="grid-node-dot" style="top:65%;left:35%;animation-delay:1.2s;"></div>
+        <div class="grid-node-dot" style="top:70%;left:70%;animation-delay:0.6s;"></div>
+        <div class="grid-node-dot" style="top:85%;left:50%;animation-delay:1.5s;"></div>
+        <div class="grid-node-dot" style="top:55%;left:10%;animation-delay:0.9s;"></div>
+        <div class="grid-node-dot" style="top:30%;left:45%;animation-delay:0.2s;"></div>
+        <div class="grid-node-dot" style="top:80%;left:20%;animation-delay:1.8s;"></div>
+        <div class="grid-node-dot" style="top:45%;left:90%;animation-delay:0.4s;"></div>
+
+        <!-- Connection lines -->
+        <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;">
+          <line x1="30%" y1="20%" x2="65%" y2="15%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="30%" y1="20%" x2="20%" y2="40%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="50%" y1="50%" x2="65%" y2="15%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="50%" y1="50%" x2="80%" y2="35%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="50%" y1="50%" x2="35%" y2="65%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="50%" y1="50%" x2="70%" y2="70%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="70%" y1="70%" x2="50%" y2="85%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="35%" y1="65%" x2="20%" y2="80%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="20%" y1="40%" x2="10%" y2="55%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="45%" y1="30%" x2="50%" y2="50%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="80%" y1="35%" x2="90%" y2="45%" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTORS -->
+<section id="sectors" class="section sectors-section">
+  <div class="section-container">
+    <p class="section-number reveal">005</p>
+    <p class="section-label reveal reveal-delay-1">Vertical Deployment</p>
+    <h2 class="section-title reveal reveal-delay-2">Intelligence Across<br><em>Every Sector</em></h2>
+
+    <div class="sectors-grid reveal reveal-delay-3">
+      <div class="sector-card">
+        <span class="sector-icon">Government & Defense</span>
+        <h3 class="sector-name">Sovereign AI Clusters</h3>
+        <p class="sector-desc">Convert end-of-life institutional devices into classified-grade edge AI infrastructure. On-premise, air-gapped, zero cloud dependency. SBIR/STTR eligible.</p>
+      </div>
+
+      <div class="sector-card">
+        <span class="sector-icon">Education</span>
+        <h3 class="sector-name">School District Transformation</h3>
+        <p class="sector-desc">Transform warehoused Chromebooks and laptops into AI learning labs and administrative automation nodes. E-Rate funded. Sustainability-compliant.</p>
+      </div>
+
+      <div class="sector-card">
+        <span class="sector-icon">Legal & Finance</span>
+        <h3 class="sector-name">Compliance Infrastructure</h3>
+        <p class="sector-desc">Private edge clusters for document processing, regulatory compliance, financial analytics, and audit automation. Data never leaves the building.</p>
+      </div>
+
+      <div class="sector-card">
+        <span class="sector-icon">Media & Entertainment</span>
+        <h3 class="sector-name">Creative Production Grid</h3>
+        <p class="sector-desc">Distributed rendering, AI-assisted post-production, music mastering, and content generation at 40-60% lower cost than cloud compute. Studio-grade, indie-priced.</p>
+      </div>
+
+      <div class="sector-card">
+        <span class="sector-icon">Real Estate</span>
+        <h3 class="sector-name">Property Intelligence</h3>
+        <p class="sector-desc">Automated listing management, market analysis, lead qualification, document generation, and transaction coordination. Every brokerage becomes AI-powered.</p>
+      </div>
+
+      <div class="sector-card">
+        <span class="sector-icon">Healthcare</span>
+        <h3 class="sector-name">Clinical Edge AI</h3>
+        <p class="sector-desc">HIPAA-compliant local processing for patient records, diagnostic assistance, scheduling optimization, and clinical research analysis. Zero cloud exposure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DEVICE OWNERS -->
+<section class="section owners-section">
+  <div class="section-container">
+    <div class="owners-layout">
+      <div>
+        <p class="section-number reveal" style="color:var(--gray-400);">006</p>
+        <p class="section-label reveal reveal-delay-1">For Device Owners</p>
+        <h2 class="section-title reveal reveal-delay-2">Your Old Device<br>Has a <em>New Life</em></h2>
+        <p class="section-body reveal reveal-delay-3">That laptop in your drawer isn't dead — it's dormant. AutoIntel gives you three ways to unlock its value.</p>
+
+        <div class="owners-options">
+          <div class="owner-option reveal">
+            <div class="option-num">A</div>
+            <div>
+              <h4 class="option-title">Sell It to Us</h4>
+              <p class="option-desc">We purchase compatible devices outright. Fast payment, no hassle. We handle all data wiping, refurbishment, and redeployment. You get paid, the planet gets saved.</p>
+            </div>
+          </div>
+
+          <div class="owner-option reveal reveal-delay-1">
+            <div class="option-num">B</div>
+            <div>
+              <h4 class="option-title">Transform It Into a Node</h4>
+              <p class="option-desc">Pay a conversion fee and we'll install AutoIntel OS on your device, transforming it into a specialized AI employee of your choosing. Accountant, researcher, creator — you pick the role.</p>
+            </div>
+          </div>
+
+          <div class="owner-option reveal reveal-delay-2">
+            <div class="option-num">C</div>
+            <div>
+              <h4 class="option-title">Connect It to the Grid</h4>
+              <p class="option-desc">Keep your device but connect it to the AutoIntel distributed compute network. Your machine processes AI workloads when idle, and you earn compute credits. Passive income from a machine you already own.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="owners-visual reveal reveal-delay-2">
+        <svg class="owners-sketch" viewBox="0 0 400 400" fill="none">
+          <!-- Device sketch -->
+          <rect x="100" y="80" width="200" height="130" rx="6" stroke="rgba(0,0,0,0.2)" stroke-width="1.5" fill="none"/>
+          <rect x="110" y="90" width="180" height="100" rx="2" stroke="rgba(0,0,0,0.1)" stroke-width="0.5" fill="rgba(0,0,0,0.02)"/>
+          <rect x="80" y="210" width="240" height="10" rx="2" stroke="rgba(0,0,0,0.15)" stroke-width="1" fill="none"/>
+
+          <!-- Scribble arrows to 3 options -->
+          <path d="M200 230 C180 260, 100 270, 80 300" stroke="rgba(0,0,0,0.2)" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
+          <path d="M200 230 C200 270, 200 280, 200 300" stroke="rgba(0,0,0,0.2)" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
+          <path d="M200 230 C220 260, 300 270, 320 300" stroke="rgba(0,0,0,0.2)" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
+
+          <!-- Labels -->
+          <text x="80" y="320" text-anchor="middle" fill="rgba(0,0,0,0.4)" font-family="Caveat" font-size="16">sell</text>
+          <text x="200" y="320" text-anchor="middle" fill="rgba(0,0,0,0.4)" font-family="Caveat" font-size="16">transform</text>
+          <text x="320" y="320" text-anchor="middle" fill="rgba(0,0,0,0.4)" font-family="Caveat" font-size="16">connect</text>
+
+          <!-- Dollar signs / icons -->
+          <text x="80" y="350" text-anchor="middle" fill="rgba(0,0,0,0.15)" font-family="Caveat" font-size="24">$</text>
+          <circle cx="200" cy="345" r="12" stroke="rgba(0,0,0,0.15)" stroke-width="1" fill="none"/>
+          <text x="200" y="350" text-anchor="middle" fill="rgba(0,0,0,0.15)" font-family="Space Grotesk" font-size="9">AI</text>
+          <svg x="308" y="333" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="rgba(0,0,0,0.15)" stroke-width="1" stroke-dasharray="2,3"/>
+          </svg>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTERPRISE -->
+<section class="section enterprise-section">
+  <div class="section-container">
+    <div class="enterprise-layout">
+      <div class="reveal">
+        <svg viewBox="0 0 400 400" fill="none" style="width:100%;max-width:400px;">
+          <!-- Server rack sketch -->
+          <rect x="80" y="40" width="240" height="320" rx="4" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="rgba(255,255,255,0.01)"/>
+          <!-- Rack units -->
+          <rect x="100" y="60" width="200" height="30" rx="2" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" fill="rgba(255,255,255,0.02)"/>
+          <rect x="100" y="100" width="200" height="30" rx="2" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" fill="rgba(255,255,255,0.02)"/>
+          <rect x="100" y="140" width="200" height="30" rx="2" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" fill="rgba(255,255,255,0.02)"/>
+          <rect x="100" y="180" width="200" height="30" rx="2" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" fill="rgba(255,255,255,0.02)"/>
+          <rect x="100" y="220" width="200" height="30" rx="2" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" fill="rgba(255,255,255,0.02)"/>
+          <rect x="100" y="260" width="200" height="30" rx="2" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" fill="rgba(255,255,255,0.02)"/>
+          <rect x="100" y="300" width="200" height="30" rx="2" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" fill="rgba(255,255,255,0.02)"/>
+          <!-- Status dots -->
+          <circle cx="115" cy="75" r="3" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="115" cy="115" r="3" fill="rgba(255,255,255,0.2)"/>
+          <circle cx="115" cy="155" r="3" fill="rgba(255,255,255,0.4)"/>
+          <circle cx="115" cy="195" r="3" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="115" cy="235" r="3" fill="rgba(255,255,255,0.2)"/>
+          <circle cx="115" cy="275" r="3" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="115" cy="315" r="3" fill="rgba(255,255,255,0.15)"/>
+          <!-- Label -->
+          <text x="200" y="390" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="Caveat" font-size="14">private edge cluster</text>
+        </svg>
+      </div>
+
+      <div>
+        <p class="section-number reveal">007</p>
+        <p class="section-label reveal reveal-delay-1">Enterprise & Government</p>
+        <h2 class="section-title reveal reveal-delay-2">Private Edge<br><em>Intelligence</em></h2>
+        <p class="section-body reveal reveal-delay-3">For organizations that demand absolute data sovereignty. AutoIntel deploys on-premise AI clusters built from refurbished hardware — zero cloud dependency, full operational control, fraction of the cost.</p>
+
+        <div class="enterprise-features reveal reveal-delay-4">
+          <div class="ent-feature">
+            <div class="ent-marker">01</div>
+            <div class="ent-text">
+              <h4>Air-Gapped Operation</h4>
+              <p>Complete network isolation. No external data transmission. Classified-grade security for defense, healthcare, and financial institutions.</p>
+            </div>
+          </div>
+          <div class="ent-feature">
+            <div class="ent-marker">02</div>
+            <div class="ent-text">
+              <h4>Subscription Infrastructure</h4>
+              <p>Hardware + software licensing + ongoing optimization + agent upgrades. Predictable monthly cost, zero capital expenditure.</p>
+            </div>
+          </div>
+          <div class="ent-feature">
+            <div class="ent-marker">03</div>
+            <div class="ent-text">
+              <h4>Supercluster Facilities</h4>
+              <p>For maximum compute density, AutoIntel operates dedicated refurbished-hardware data centers at 1/10th the capital cost of traditional infrastructure.</p>
+            </div>
+          </div>
+          <div class="ent-feature">
+            <div class="ent-marker">04</div>
+            <div class="ent-text">
+              <h4>Global OS Licensing</h4>
+              <p>License the AutoIntel operating system to telecoms, OEMs, and refurbishment partners worldwide. Scale without owning every device.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REVENUE -->
+<section class="section revenue-section">
+  <div class="section-container">
+    <div style="text-align:center;">
+      <p class="section-number reveal">008</p>
+      <p class="section-label reveal reveal-delay-1">Revenue Architecture</p>
+      <h2 class="section-title reveal reveal-delay-2" style="text-align:center;">Six Streams.<br>All <em>Recurring.</em></h2>
+    </div>
+
+    <div class="revenue-streams">
+      <div class="revenue-card reveal">
+        <div class="rev-amount">I</div>
+        <div class="rev-stream">Node Sales</div>
+        <p class="rev-desc">Pre-built AI employee devices sold at premium margins. Hardware acquired at 10-30% of value, sold as specialized intelligence units at 3-8x markup.</p>
+      </div>
+
+      <div class="revenue-card reveal reveal-delay-1">
+        <div class="rev-amount">II</div>
+        <div class="rev-stream">Grid Transaction Fees</div>
+        <p class="rev-desc">Commission on every compute transaction processed through the distributed grid. As the network grows, transaction volume compounds.</p>
+      </div>
+
+      <div class="revenue-card reveal reveal-delay-2">
+        <div class="rev-amount">III</div>
+        <div class="rev-stream">Enterprise Subscriptions</div>
+        <p class="rev-desc">Recurring monthly fees for private edge cluster deployments, including software licensing, agent upgrades, monitoring, and optimization.</p>
+      </div>
+
+      <div class="revenue-card reveal">
+        <div class="rev-amount">IV</div>
+        <div class="rev-stream">Agent Marketplace</div>
+        <p class="rev-desc">Platform commission on third-party AI agents built for the AutoIntel ecosystem. Developers build, users install, AutoIntel takes a cut of every transaction.</p>
+      </div>
+
+      <div class="revenue-card reveal reveal-delay-1">
+        <div class="rev-amount">V</div>
+        <div class="rev-stream">OS Licensing</div>
+        <p class="rev-desc">License the AutoIntel operating system to device manufacturers, telecom operators, and refurbishment partners globally. Revenue without hardware ownership.</p>
+      </div>
+
+      <div class="revenue-card reveal reveal-delay-2">
+        <div class="rev-amount">VI</div>
+        <div class="rev-stream">Government Contracts</div>
+        <p class="rev-desc">Institutional device transformation contracts for school districts, military branches, and government agencies. Multi-year, recurring, and budget-allocated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BACKED BY -->
+<section class="backed-section">
+  <div class="reveal">
+    <p class="backed-label">A DiviDev Company</p>
+    <h2 class="backed-name"><em>Vision</em>Farm Portfolio</h2>
+    <p class="backed-sub">Incubated by DiviDev &middot; Powered by VisionFarm</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FINAL CTA -->
+<section id="join" class="cta-section">
+  <div>
+    <h2 class="cta-title reveal">Join the<br><em>Intelligence Grid</em></h2>
+    <p class="cta-sub reveal reveal-delay-1">Connect your device. Deploy a node. Access the network. The autonomous intelligence economy starts here.</p>
+    <form class="cta-form reveal reveal-delay-2" onsubmit="event.preventDefault(); this.querySelector('button').textContent='JOINED'; this.querySelector('button').style.background='#333'; this.querySelector('button').style.color='#fff';">
+      <input type="email" class="cta-input" placeholder="Enter your email" required>
+      <button type="submit" class="cta-submit">Join Network</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">&copy; 2025 AutoIntel Technologies. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#thesis">Thesis</a>
+    <a href="#nodes">Nodes</a>
+    <a href="#grid">Grid</a>
+    <a href="mailto:info@autointel.tech">Contact</a>
+  </div>
+  <div class="footer-parent">A <a href="https://putyaheartinit.github.io/visionfarm/">DiviDev</a> Company</div>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
