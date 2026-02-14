@@ -183,6 +183,29 @@ nav.scrolled { padding: 16px 48px; background: rgba(0,0,0,0.9); }
 .scribble-2 { bottom: 20%; right: 8%; width: 250px; animation: drift 25s ease-in-out infinite reverse; }
 .scribble-3 { top: 60%; left: 50%; width: 400px; animation: drift 30s ease-in-out infinite; }
 
+/* ---- DEVICE DOODLES ---- */
+.device-doodles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.device-doodle {
+  position: absolute;
+  opacity: 0.035;
+  animation: doodleDrift linear infinite;
+}
+.device-doodle svg { width: 100%; height: 100%; }
+
+@keyframes doodleDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(12px, -18px) rotate(2deg); }
+  50% { transform: translate(-8px, 12px) rotate(-1deg); }
+  75% { transform: translate(15px, 8px) rotate(1.5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
 @keyframes drift {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   25% { transform: translate(10px, -15px) rotate(1deg); }
@@ -552,6 +575,329 @@ nav.scrolled { padding: 16px 48px; background: rgba(0,0,0,0.9); }
   color: var(--white);
   font-weight: 500;
   font-size: 13px;
+}
+
+/* ---- RENTAL PRICING ---- */
+.rental-section { background: var(--gray-900); }
+
+.rental-intro {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 80px;
+}
+.rental-intro .section-body { text-align: center; margin: 0 auto; }
+
+/* Hardware Tier Tabs */
+.tier-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 48px;
+  background: rgba(255,255,255,0.03);
+  padding: 4px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tier-tab {
+  flex: 1;
+  padding: 14px 20px;
+  background: transparent;
+  border: none;
+  color: var(--gray-400);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+.tier-tab:hover { color: var(--white); }
+.tier-tab.active {
+  background: var(--white);
+  color: var(--black);
+  font-weight: 600;
+}
+
+.tier-info {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.tier-info h3 {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+.tier-info .tier-spec {
+  font-family: var(--hand);
+  font-size: 16px;
+  color: var(--gray-400);
+  margin-bottom: 8px;
+}
+.tier-info .tier-ideal {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-600);
+}
+
+/* Duration Pricing Grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.price-card {
+  padding: 36px 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  background: rgba(255,255,255,0.01);
+}
+.price-card:hover {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.03);
+  transform: translateY(-4px);
+}
+.price-card.popular {
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.04);
+}
+.price-card.popular::before {
+  content: 'MOST POPULAR';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 14px;
+  background: var(--white);
+  color: var(--black);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.price-duration {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+}
+
+.price-amount {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+}
+.price-amount .period {
+  font-size: 16px;
+  color: var(--gray-600);
+  font-family: var(--sans);
+  font-weight: 300;
+}
+
+.price-per-day {
+  font-family: var(--hand);
+  font-size: 15px;
+  color: var(--gray-400);
+  margin-top: 8px;
+}
+
+.price-savings {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 3px 10px;
+  background: rgba(255,255,255,0.06);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray-200);
+}
+
+.price-cta {
+  display: block;
+  margin-top: 24px;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.price-cta:hover {
+  background: var(--white);
+  color: var(--black);
+}
+.price-card.popular .price-cta {
+  background: var(--white);
+  color: var(--black);
+}
+.price-card.popular .price-cta:hover {
+  background: var(--gray-100);
+}
+
+/* Business Volume */
+.volume-section {
+  margin-top: 100px;
+  text-align: center;
+}
+.volume-section h3 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+.volume-section h3 em { font-style: italic; }
+.volume-section .volume-sub {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray-400);
+  margin-bottom: 48px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.volume-tiers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.volume-card {
+  padding: 32px 20px;
+  border: 1px dashed rgba(255,255,255,0.08);
+  text-align: center;
+  transition: all 0.3s;
+}
+.volume-card:hover {
+  border-style: solid;
+  border-color: rgba(255,255,255,0.15);
+}
+.volume-card.featured {
+  border-style: solid;
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.02);
+}
+
+.volume-name {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gray-200);
+  margin-bottom: 12px;
+}
+
+.volume-nodes {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+}
+.volume-nodes span {
+  font-size: 16px;
+  color: var(--gray-600);
+  font-family: var(--sans);
+}
+
+.volume-discount {
+  font-family: var(--hand);
+  font-size: 16px;
+  color: var(--gray-400);
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.volume-desc {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+/* Complexity Guide */
+.complexity-guide {
+  margin-top: 100px;
+}
+.complexity-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.complexity-header h3 {
+  font-family: var(--serif);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+.complexity-header p {
+  font-family: var(--hand);
+  font-size: 18px;
+  color: var(--gray-400);
+}
+
+.complexity-table {
+  max-width: 900px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 100%;
+}
+.complexity-table th {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.complexity-table td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-200);
+  vertical-align: top;
+}
+.complexity-table td:first-child {
+  font-family: var(--hand);
+  font-size: 16px;
+  color: var(--white);
+  white-space: nowrap;
+}
+.complexity-table td:last-child {
+  color: var(--gray-400);
+}
+.complexity-table tr:hover td {
+  background: rgba(255,255,255,0.01);
 }
 
 /* ---- GRID SECTION ---- */
@@ -1012,6 +1358,11 @@ footer {
   .nodes-grid { grid-template-columns: 1fr; }
   .sectors-grid { grid-template-columns: 1fr; }
   .revenue-streams { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr 1fr; }
+  .volume-tiers { grid-template-columns: 1fr 1fr; }
+  .tier-tabs { flex-wrap: wrap; }
+  .complexity-table { font-size: 12px; }
+  .complexity-table td, .complexity-table th { padding: 10px 8px; }
   .step-arrow { display: none; }
   .hero-title { letter-spacing: -1px; }
   .hero-cta-row { flex-direction: column; align-items: center; }
@@ -1037,6 +1388,148 @@ footer {
 
 <div class="noise"></div>
 
+<!-- DEVICE DOODLES — scattered throughout page -->
+<div class="device-doodles">
+  <!-- iMac 1 -->
+  <div class="device-doodle" style="top:8%;left:3%;width:140px;animation-duration:35s;">
+    <svg viewBox="0 0 120 100" fill="none">
+      <rect x="15" y="5" width="90" height="60" rx="3" stroke="white" stroke-width="0.8" fill="none"/>
+      <rect x="20" y="10" width="80" height="48" rx="1" stroke="white" stroke-width="0.4" fill="none"/>
+      <line x1="60" y1="65" x2="60" y2="78" stroke="white" stroke-width="0.8"/>
+      <path d="M40 78 C45 82, 55 85, 60 78 C65 85, 75 82, 80 78" stroke="white" stroke-width="0.6" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- MacBook 1 -->
+  <div class="device-doodle" style="top:22%;right:5%;width:120px;animation-duration:28s;animation-delay:-5s;">
+    <svg viewBox="0 0 120 80" fill="none">
+      <path d="M20 15 L20 55 Q20 58 23 58 L97 58 Q100 58 100 55 L100 15 Q100 12 97 12 L23 12 Q20 12 20 15Z" stroke="white" stroke-width="0.8" fill="none"/>
+      <rect x="25" y="17" width="70" height="36" rx="1" stroke="white" stroke-width="0.4" fill="none"/>
+      <path d="M10 58 L110 58 Q112 58 112 60 L112 63 Q112 65 110 65 L10 65 Q8 65 8 63 L8 60 Q8 58 10 58Z" stroke="white" stroke-width="0.8" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- iPad 1 -->
+  <div class="device-doodle" style="top:38%;left:6%;width:80px;animation-duration:32s;animation-delay:-8s;">
+    <svg viewBox="0 0 70 95" fill="none">
+      <rect x="5" y="5" width="60" height="85" rx="6" stroke="white" stroke-width="0.8" fill="none"/>
+      <rect x="10" y="12" width="50" height="68" rx="2" stroke="white" stroke-width="0.4" fill="none"/>
+      <circle cx="35" cy="87" r="2.5" stroke="white" stroke-width="0.5" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- Mac Mini 1 -->
+  <div class="device-doodle" style="top:52%;right:4%;width:100px;animation-duration:30s;animation-delay:-12s;">
+    <svg viewBox="0 0 100 40" fill="none">
+      <rect x="10" y="5" width="80" height="25" rx="5" stroke="white" stroke-width="0.8" fill="none"/>
+      <circle cx="50" cy="17" r="8" stroke="white" stroke-width="0.4" fill="none" stroke-dasharray="2,3"/>
+      <line x1="15" y1="30" x2="85" y2="30" stroke="white" stroke-width="0.3"/>
+      <text x="50" y="35" text-anchor="middle" fill="white" font-family="Caveat" font-size="5" opacity="0.6">mac mini</text>
+    </svg>
+  </div>
+
+  <!-- Mac Studio -->
+  <div class="device-doodle" style="top:68%;left:4%;width:90px;animation-duration:26s;animation-delay:-3s;">
+    <svg viewBox="0 0 80 60" fill="none">
+      <rect x="10" y="5" width="60" height="45" rx="6" stroke="white" stroke-width="0.8" fill="none"/>
+      <circle cx="40" cy="27" r="12" stroke="white" stroke-width="0.4" fill="none"/>
+      <circle cx="40" cy="27" r="6" stroke="white" stroke-width="0.3" fill="none" stroke-dasharray="1.5,3"/>
+      <text x="40" y="55" text-anchor="middle" fill="white" font-family="Caveat" font-size="5" opacity="0.6">mac studio</text>
+    </svg>
+  </div>
+
+  <!-- iMac 2 -->
+  <div class="device-doodle" style="top:15%;left:85%;width:110px;animation-duration:40s;animation-delay:-15s;">
+    <svg viewBox="0 0 120 100" fill="none">
+      <rect x="15" y="5" width="90" height="60" rx="3" stroke="white" stroke-width="0.8" fill="none"/>
+      <rect x="20" y="10" width="80" height="48" rx="1" stroke="white" stroke-width="0.4" fill="none"/>
+      <line x1="60" y1="65" x2="60" y2="78" stroke="white" stroke-width="0.8"/>
+      <line x1="35" y1="78" x2="85" y2="78" stroke="white" stroke-width="0.6"/>
+    </svg>
+  </div>
+
+  <!-- MacBook 2 -->
+  <div class="device-doodle" style="top:45%;left:88%;width:100px;animation-duration:33s;animation-delay:-7s;">
+    <svg viewBox="0 0 120 80" fill="none">
+      <path d="M20 15 L20 55 Q20 58 23 58 L97 58 Q100 58 100 55 L100 15 Q100 12 97 12 L23 12 Q20 12 20 15Z" stroke="white" stroke-width="0.8" fill="none"/>
+      <rect x="25" y="17" width="70" height="36" rx="1" stroke="white" stroke-width="0.4" fill="none"/>
+      <path d="M10 58 L110 58 Q112 58 112 60 L112 63 Q112 65 110 65 L10 65 Q8 65 8 63 L8 60 Q8 58 10 58Z" stroke="white" stroke-width="0.8" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- iPad 2 -->
+  <div class="device-doodle" style="top:75%;right:6%;width:70px;animation-duration:29s;animation-delay:-10s;">
+    <svg viewBox="0 0 70 95" fill="none">
+      <rect x="5" y="5" width="60" height="85" rx="6" stroke="white" stroke-width="0.8" fill="none"/>
+      <rect x="10" y="12" width="50" height="68" rx="2" stroke="white" stroke-width="0.4" fill="none"/>
+      <circle cx="35" cy="87" r="2.5" stroke="white" stroke-width="0.5" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- Mac Mini 2 -->
+  <div class="device-doodle" style="top:85%;left:8%;width:90px;animation-duration:36s;animation-delay:-18s;">
+    <svg viewBox="0 0 100 40" fill="none">
+      <rect x="10" y="5" width="80" height="25" rx="5" stroke="white" stroke-width="0.8" fill="none"/>
+      <circle cx="50" cy="17" r="8" stroke="white" stroke-width="0.4" fill="none" stroke-dasharray="2,3"/>
+      <line x1="15" y1="30" x2="85" y2="30" stroke="white" stroke-width="0.3"/>
+    </svg>
+  </div>
+
+  <!-- MacBook 3 (angled) -->
+  <div class="device-doodle" style="top:30%;left:92%;width:90px;animation-duration:38s;animation-delay:-20s;transform:rotate(15deg);">
+    <svg viewBox="0 0 120 80" fill="none">
+      <path d="M20 15 L20 55 Q20 58 23 58 L97 58 Q100 58 100 55 L100 15 Q100 12 97 12 L23 12 Q20 12 20 15Z" stroke="white" stroke-width="0.8" fill="none"/>
+      <rect x="25" y="17" width="70" height="36" rx="1" stroke="white" stroke-width="0.4" fill="none"/>
+      <path d="M10 58 L110 58 Q112 58 112 60 L112 63 Q112 65 110 65 L10 65 Q8 65 8 63 L8 60 Q8 58 10 58Z" stroke="white" stroke-width="0.8" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- iMac 3 -->
+  <div class="device-doodle" style="top:60%;left:2%;width:100px;animation-duration:42s;animation-delay:-22s;">
+    <svg viewBox="0 0 120 100" fill="none">
+      <rect x="15" y="5" width="90" height="60" rx="3" stroke="white" stroke-width="0.8" fill="none"/>
+      <rect x="20" y="10" width="80" height="48" rx="1" stroke="white" stroke-width="0.4" fill="none"/>
+      <line x1="60" y1="65" x2="60" y2="78" stroke="white" stroke-width="0.8"/>
+      <path d="M40 78 C45 82, 55 85, 60 78 C65 85, 75 82, 80 78" stroke="white" stroke-width="0.6" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- Mac Studio 2 -->
+  <div class="device-doodle" style="top:90%;left:50%;width:80px;animation-duration:31s;animation-delay:-14s;">
+    <svg viewBox="0 0 80 60" fill="none">
+      <rect x="10" y="5" width="60" height="45" rx="6" stroke="white" stroke-width="0.8" fill="none"/>
+      <circle cx="40" cy="27" r="12" stroke="white" stroke-width="0.4" fill="none"/>
+      <circle cx="40" cy="27" r="6" stroke="white" stroke-width="0.3" fill="none" stroke-dasharray="1.5,3"/>
+    </svg>
+  </div>
+
+  <!-- iPad 3 (landscape) -->
+  <div class="device-doodle" style="top:5%;left:45%;width:100px;animation-duration:34s;animation-delay:-9s;">
+    <svg viewBox="0 0 95 70" fill="none">
+      <rect x="5" y="5" width="85" height="60" rx="6" stroke="white" stroke-width="0.8" fill="none"/>
+      <rect x="12" y="10" width="68" height="50" rx="2" stroke="white" stroke-width="0.4" fill="none"/>
+      <circle cx="89" cy="35" r="2" stroke="white" stroke-width="0.5" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- MacBook 4 -->
+  <div class="device-doodle" style="top:78%;left:40%;width:110px;animation-duration:27s;animation-delay:-16s;">
+    <svg viewBox="0 0 120 80" fill="none">
+      <path d="M20 15 L20 55 Q20 58 23 58 L97 58 Q100 58 100 55 L100 15 Q100 12 97 12 L23 12 Q20 12 20 15Z" stroke="white" stroke-width="0.8" fill="none"/>
+      <rect x="25" y="17" width="70" height="36" rx="1" stroke="white" stroke-width="0.4" fill="none"/>
+      <path d="M10 58 L110 58 Q112 58 112 60 L112 63 Q112 65 110 65 L10 65 Q8 65 8 63 L8 60 Q8 58 10 58Z" stroke="white" stroke-width="0.8" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- Mac Mini 3 -->
+  <div class="device-doodle" style="top:42%;left:48%;width:75px;animation-duration:44s;animation-delay:-25s;">
+    <svg viewBox="0 0 100 40" fill="none">
+      <rect x="10" y="5" width="80" height="25" rx="5" stroke="white" stroke-width="0.8" fill="none"/>
+      <circle cx="50" cy="17" r="8" stroke="white" stroke-width="0.4" fill="none" stroke-dasharray="2,3"/>
+    </svg>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-brand">
@@ -1047,6 +1540,7 @@ footer {
     <a href="#thesis">Thesis</a>
     <a href="#how">How It Works</a>
     <a href="#nodes">Nodes</a>
+    <a href="#pricing">Pricing</a>
     <a href="#grid">The Grid</a>
     <a href="#sectors">Sectors</a>
     <a href="#join" class="nav-cta">Join Network</a>
@@ -1257,12 +1751,156 @@ footer {
 
 <div class="divider"></div>
 
+<!-- NODE RENTALS & PRICING -->
+<section id="pricing" class="section rental-section">
+  <div class="section-container">
+    <div class="rental-intro">
+      <p class="section-number reveal">004</p>
+      <p class="section-label reveal reveal-delay-1">Flexible Deployment</p>
+      <h2 class="section-title reveal reveal-delay-2" style="text-align:center;">Own It. <em>Or Rent It.</em></h2>
+      <p class="section-body reveal reveal-delay-3">Not every task needs the same hardware. Simple scheduling runs on a 2016 laptop. Real-time video processing needs a modern GPU. We match the machine to the mission — and you only pay for what you need.</p>
+    </div>
+
+    <!-- Hardware Tier Selector -->
+    <div class="tier-tabs reveal" id="tierTabs">
+      <button class="tier-tab active" data-tier="lite" onclick="switchTier('lite')">Lite Node</button>
+      <button class="tier-tab" data-tier="standard" onclick="switchTier('standard')">Standard Node</button>
+      <button class="tier-tab" data-tier="performance" onclick="switchTier('performance')">Performance</button>
+      <button class="tier-tab" data-tier="enterprise" onclick="switchTier('enterprise')">Enterprise</button>
+    </div>
+
+    <!-- Tier Info -->
+    <div class="tier-info reveal" id="tierInfo">
+      <h3 id="tierName">Lite Node</h3>
+      <p class="tier-spec" id="tierSpec">Pre-2018 hardware &middot; 4-8GB RAM &middot; Basic CPU</p>
+      <p class="tier-ideal" id="tierIdeal">Ideal for: data entry, scheduling, basic email automation, text classification, simple bookkeeping</p>
+    </div>
+
+    <!-- Duration Pricing Cards -->
+    <div class="pricing-grid reveal" id="pricingGrid">
+      <div class="price-card">
+        <div class="price-duration">Daily</div>
+        <div class="price-amount" id="priceDaily">$9<span class="period">/day</span></div>
+        <div class="price-per-day" id="dailyNote">no commitment</div>
+        <a href="#join" class="price-cta">Rent Now</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-duration">Weekly</div>
+        <div class="price-amount" id="priceWeekly">$49<span class="period">/week</span></div>
+        <div class="price-per-day" id="weeklyPerDay">$7/day</div>
+        <div class="price-savings" id="weeklySave">Save 22%</div>
+        <a href="#join" class="price-cta">Rent Now</a>
+      </div>
+
+      <div class="price-card popular">
+        <div class="price-duration">Monthly</div>
+        <div class="price-amount" id="priceMonthly">$149<span class="period">/mo</span></div>
+        <div class="price-per-day" id="monthlyPerDay">$4.97/day</div>
+        <div class="price-savings" id="monthlySave">Save 45%</div>
+        <a href="#join" class="price-cta">Rent Now</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-duration">Annual</div>
+        <div class="price-amount" id="priceAnnual">$1,199<span class="period">/yr</span></div>
+        <div class="price-per-day" id="annualPerDay">$3.29/day</div>
+        <div class="price-savings" id="annualSave">Save 63%</div>
+        <a href="#join" class="price-cta">Rent Now</a>
+      </div>
+    </div>
+
+    <!-- Business Volume Pricing -->
+    <div class="volume-section reveal">
+      <h3>Multi-Node for <em>Business</em></h3>
+      <p class="volume-sub">One node is an employee. Ten nodes is a department. Fifty nodes is an autonomous workforce. Volume pricing makes scale inevitable.</p>
+
+      <div class="volume-tiers">
+        <div class="volume-card">
+          <div class="volume-name">Startup</div>
+          <div class="volume-nodes">5<span> nodes</span></div>
+          <div class="volume-discount">10% off per node</div>
+          <div class="volume-desc">Perfect for small teams automating core functions — admin, finance, customer service, research, content.</div>
+        </div>
+
+        <div class="volume-card featured">
+          <div class="volume-name">Business</div>
+          <div class="volume-nodes">10–25<span> nodes</span></div>
+          <div class="volume-discount">20% off per node</div>
+          <div class="volume-desc">Department-level deployment. Run entire verticals — marketing, operations, legal, HR — on autonomous intelligence.</div>
+        </div>
+
+        <div class="volume-card">
+          <div class="volume-name">Scale</div>
+          <div class="volume-nodes">25–50<span> nodes</span></div>
+          <div class="volume-discount">30% off per node</div>
+          <div class="volume-desc">Organizational transformation. Replace legacy SaaS with owned infrastructure. Full digital workforce deployment.</div>
+        </div>
+
+        <div class="volume-card">
+          <div class="volume-name">Enterprise</div>
+          <div class="volume-nodes">50+<span> nodes</span></div>
+          <div class="volume-discount">custom pricing</div>
+          <div class="volume-desc">White-glove deployment. Dedicated account management, custom agent development, on-site cluster installation.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Task Complexity Guide -->
+    <div class="complexity-guide reveal">
+      <div class="complexity-header">
+        <h3>Match the Machine to the <em>Mission</em></h3>
+        <p>simpler task = older hardware = lower cost</p>
+      </div>
+
+      <table class="complexity-table">
+        <thead>
+          <tr>
+            <th>Task Type</th>
+            <th>Examples</th>
+            <th>Hardware Required</th>
+            <th>Starting At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Simple</td>
+            <td>Email triage, appointment scheduling, data entry, basic chatbot, invoice processing</td>
+            <td>Lite Node — any CPU, 4GB+ RAM, older models</td>
+            <td>$149/mo</td>
+          </tr>
+          <tr>
+            <td>Moderate</td>
+            <td>Financial analysis, market research, content writing, document review, CRM automation</td>
+            <td>Standard Node — modern CPU, 8-16GB RAM</td>
+            <td>$299/mo</td>
+          </tr>
+          <tr>
+            <td>Complex</td>
+            <td>Video editing, multi-agent orchestration, real-time analytics, code generation, AI training</td>
+            <td>Performance Node — fast CPU/GPU, 16-32GB RAM</td>
+            <td>$599/mo</td>
+          </tr>
+          <tr>
+            <td>Intensive</td>
+            <td>3D rendering, large language model inference, scientific simulation, full-stack automation</td>
+            <td>Enterprise Node — dedicated GPU, 32GB+ RAM, NVMe</td>
+            <td>Custom</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- THE GRID -->
 <section id="grid" class="section grid-section">
   <div class="section-container">
     <div class="grid-layout">
       <div>
-        <p class="section-number reveal">004</p>
+        <p class="section-number reveal">005</p>
         <p class="section-label reveal reveal-delay-1">Distributed Intelligence</p>
         <h2 class="section-title reveal reveal-delay-2">The AutoIntel<br><em>Grid</em></h2>
         <p class="section-body reveal reveal-delay-3">Every AutoIntel node can connect to a global distributed compute network. Together, thousands of nodes form a decentralized intelligence grid — processing AI workloads at a fraction of the cost of traditional cloud infrastructure.</p>
@@ -1330,7 +1968,7 @@ footer {
 <!-- SECTORS -->
 <section id="sectors" class="section sectors-section">
   <div class="section-container">
-    <p class="section-number reveal">005</p>
+    <p class="section-number reveal">006</p>
     <p class="section-label reveal reveal-delay-1">Vertical Deployment</p>
     <h2 class="section-title reveal reveal-delay-2">Intelligence Across<br><em>Every Sector</em></h2>
 
@@ -1381,7 +2019,7 @@ footer {
   <div class="section-container">
     <div class="owners-layout">
       <div>
-        <p class="section-number reveal" style="color:var(--gray-400);">006</p>
+        <p class="section-number reveal" style="color:var(--gray-400);">007</p>
         <p class="section-label reveal reveal-delay-1">For Device Owners</p>
         <h2 class="section-title reveal reveal-delay-2">Your Old Device<br>Has a <em>New Life</em></h2>
         <p class="section-body reveal reveal-delay-3">That laptop in your drawer isn't dead — it's dormant. AutoIntel gives you three ways to unlock its value.</p>
@@ -1473,7 +2111,7 @@ footer {
       </div>
 
       <div>
-        <p class="section-number reveal">007</p>
+        <p class="section-number reveal">008</p>
         <p class="section-label reveal reveal-delay-1">Enterprise & Government</p>
         <h2 class="section-title reveal reveal-delay-2">Private Edge<br><em>Intelligence</em></h2>
         <p class="section-body reveal reveal-delay-3">For organizations that demand absolute data sovereignty. AutoIntel deploys on-premise AI clusters built from refurbished hardware — zero cloud dependency, full operational control, fraction of the cost.</p>
@@ -1519,7 +2157,7 @@ footer {
 <section class="section revenue-section">
   <div class="section-container">
     <div style="text-align:center;">
-      <p class="section-number reveal">008</p>
+      <p class="section-number reveal">009</p>
       <p class="section-label reveal reveal-delay-1">Revenue Architecture</p>
       <h2 class="section-title reveal reveal-delay-2" style="text-align:center;">Six Streams.<br>All <em>Recurring.</em></h2>
     </div>
@@ -1628,6 +2266,71 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (target) target.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+// Tier pricing data
+const tiers = {
+  lite: {
+    name: 'Lite Node',
+    spec: 'Pre-2018 hardware \u00b7 4\u20138GB RAM \u00b7 Basic CPU',
+    ideal: 'Ideal for: data entry, scheduling, basic email automation, text classification, simple bookkeeping',
+    daily: 9, weekly: 49, monthly: 149, annual: 1199
+  },
+  standard: {
+    name: 'Standard Node',
+    spec: '2018\u20132021 hardware \u00b7 8\u201316GB RAM \u00b7 Modern CPU',
+    ideal: 'Ideal for: financial analysis, market research, content writing, document review, CRM automation',
+    daily: 19, weekly: 99, monthly: 299, annual: 2499
+  },
+  performance: {
+    name: 'Performance Node',
+    spec: '2021+ hardware \u00b7 16\u201332GB RAM \u00b7 Fast CPU or GPU',
+    ideal: 'Ideal for: video processing, multi-agent workflows, real-time analytics, code generation, AI training',
+    daily: 39, weekly: 199, monthly: 599, annual: 4999
+  },
+  enterprise: {
+    name: 'Enterprise Node',
+    spec: 'High-spec hardware \u00b7 32GB+ RAM \u00b7 Dedicated GPU \u00b7 NVMe',
+    ideal: 'Ideal for: 3D rendering, LLM inference, scientific simulation, full-stack autonomous operations',
+    daily: 79, weekly: 399, monthly: 999, annual: 8999
+  }
+};
+
+function switchTier(tier) {
+  const t = tiers[tier];
+  if (!t) return;
+
+  // Update tabs
+  document.querySelectorAll('.tier-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.tier === tier);
+  });
+
+  // Update info
+  document.getElementById('tierName').textContent = t.name;
+  document.getElementById('tierSpec').textContent = t.spec;
+  document.getElementById('tierIdeal').textContent = t.ideal;
+
+  // Update prices
+  document.getElementById('priceDaily').innerHTML = '$' + t.daily + '<span class="period">/day</span>';
+  document.getElementById('priceWeekly').innerHTML = '$' + t.weekly + '<span class="period">/week</span>';
+  document.getElementById('priceMonthly').innerHTML = '$' + t.monthly + '<span class="period">/mo</span>';
+  document.getElementById('priceAnnual').innerHTML = '$' + t.annual.toLocaleString() + '<span class="period">/yr</span>';
+
+  // Per day calculations
+  const weeklyPd = (t.weekly / 7).toFixed(2);
+  const monthlyPd = (t.monthly / 30).toFixed(2);
+  const annualPd = (t.annual / 365).toFixed(2);
+  document.getElementById('weeklyPerDay').textContent = '$' + weeklyPd + '/day';
+  document.getElementById('monthlyPerDay').textContent = '$' + monthlyPd + '/day';
+  document.getElementById('annualPerDay').textContent = '$' + annualPd + '/day';
+
+  // Savings
+  const weeklySave = Math.round((1 - (t.weekly / 7) / t.daily) * 100);
+  const monthlySave = Math.round((1 - (t.monthly / 30) / t.daily) * 100);
+  const annualSave = Math.round((1 - (t.annual / 365) / t.daily) * 100);
+  document.getElementById('weeklySave').textContent = 'Save ' + weeklySave + '%';
+  document.getElementById('monthlySave').textContent = 'Save ' + monthlySave + '%';
+  document.getElementById('annualSave').textContent = 'Save ' + annualSave + '%';
+}
 </script>
 </body>
 </html>
